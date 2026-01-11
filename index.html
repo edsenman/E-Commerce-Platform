@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>E-Commerce Platform</h1>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search products...">
+    </div>
+    <div class="category-buttons">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="Electronics">Electronics</button>
+        <button class="category-btn" data-category="Accessories">Accessories</button>
+    </div>
+    <div class="sort-container">
+        <select id="sortSelect">
+            <option value="default">Default</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+        </select>
+    </div>
+    <button id="wishlistBtn">♥ Wishlist <span id="wishlistCount" class="badge">0</span></button>
+    <button id="cartBtn">🛒 Cart (<span id="cartCount">0</span>)</button>
+</header>
+
+<main class="product-container" id="productContainer"></main>
+
+<div class="cart-modal" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="cart-content">
+        <div class="cart-header">
+            <h2 id="cartTitle">Your Cart</h2>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-footer">
+            <h3>Total: ₱<span id="totalPrice">0</span></h3>
+            <div class="cart-actions">
+                <button onclick="clearCart()" class="btn-clear">Clear Cart</button>
+                <button onclick="closeCart()" class="btn-close">Close</button>
+                <button onclick="checkout()" class="btn-checkout">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wishlist-modal" id="wishlistModal" role="dialog" aria-modal="true" aria-labelledby="wishlistTitle">
+    <div class="wishlist-content">
+        <div class="wishlist-header">
+            <h2 id="wishlistTitle">Your Wishlist</h2>
+        </div>
+        <div id="wishlistItemsContainer"></div>
+        <div class="wishlist-footer">
+            <button onclick="closeWishlist()" class="btn-close" style="width: 100%;">Close</button>
+        </div>
+    </div>
+</div>
+
+<div class="product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <div class="product-content">
+        <button type="button" class="close" onclick="closeProductModal()" aria-label="Close modal">&times;</button>
+        <div class="modal-body">
+            <div class="modal-image-section">
+                <div class="image-wrapper">
+                    <div id="zoomContainer" class="zoom-container">
+                        <img id="modalImage" src="" alt="Product Image" onerror="if(this.src !== 'https://via.placeholder.com/300x200?text=Image+Not+Found') this.src='https://via.placeholder.com/300x200?text=Image+Not+Found';">
+                    </div>
+                    <button id="prevBtn" class="carousel-btn prev" onclick="changeImage(-1)">&#10094;</button>
+                    <button id="nextBtn" class="carousel-btn next" onclick="changeImage(1)">&#10095;</button>
+                </div>
+                <div class="carousel-thumbnails" id="carouselThumbnails"></div>
+            </div>
+            <div class="modal-details-section">
+                <p id="modalCategory"></p>
+                <h2 id="modalName"></h2>
+                <div class="modal-meta-row">
+                    <p id="modalPrice"></p>
+                    <p id="modalStats"></p>
+                </div>
+                <div class="quantity-controls">
+                    <label for="modalQty">Quantity:</label>
+                    <input type="number" min="1" value="1" id="modalQty">
+                </div>
+                <div class="modal-actions">
+                    <button onclick="addToCartFromModal()" class="btn-primary">Add to Cart</button>
+                    <button onclick="addToWishlistFromModal()" class="btn-secondary">Add to Wishlist</button>
+                </div>
+            </div>
+        </div>
+        <div class="related-products-section">
+            <h3>Related Products</h3>
+            <div id="relatedProductsContainer" class="related-products-grid"></div>
+        </div>
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
